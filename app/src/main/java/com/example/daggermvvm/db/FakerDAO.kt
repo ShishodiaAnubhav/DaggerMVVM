@@ -1,0 +1,23 @@
+package com.example.daggermvvm.db
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.example.daggermvvm.models.Product
+
+@Dao
+interface FakerDAO {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addProducts(products : List<Product>)
+
+    @Query("SELECT * FROM Product")
+    suspend fun getProducts() : List<Product>
+}
+
+// create a addProduct fun add @Insert for insertion of data
+
+// create another fun with @Query to getProducts
+
+// we use suspend for back ground thread in database
