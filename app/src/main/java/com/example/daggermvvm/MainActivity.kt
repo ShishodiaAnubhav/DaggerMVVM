@@ -15,15 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.example.daggermvvm.ui.theme.DaggerMVVMTheme
 import com.example.daggermvvm.viewmodels.MainViewModel
-import com.example.daggermvvm.viewmodels.MainViewModelFactory
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     lateinit var mainViewModel: MainViewModel
-
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +31,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    (application as FakerApplication).applicationComponent.inject(this)
+                    //(application as FakerApplication).applicationComponent.inject(this)
 
                     //for testing at runtime
                     //val map = (application as FakerApplication).applicationComponent.getMap()
 
                     mainViewModel =
-                        ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+                        ViewModelProvider(this)[MainViewModel::class.java]
 
                     ProductView(mainViewModel = mainViewModel)
                 }
@@ -86,7 +83,7 @@ fun ProductView(mainViewModel: MainViewModel) {
 // create a new package for database
 // create DAO
 
-// create an abstract class for room database i.e. FakerDB
+ // create an abstract class for room database i.e. FakerDB
 
 //we get the instance of room database through builder pattern
 //so we create a module i.e. Database module
@@ -122,6 +119,29 @@ fun ProductView(mainViewModel: MainViewModel) {
 
 
  */
+
+
+/*
+ HILT CHANGES
+
+//First change the dependencies
+
+// use @HiltAndroidApp on application class i.e FakerApplication
+//and remove custom application component
+
+//use @AndroidEntryPoint for Activity , fragment,view. viewModel if we want to inject anything
+
+//remove factory and dagger code
+
+//use @HiltViewModel instead of viewModelFactory ad it will create a factory in background
+
+//us @InstallIn in Modules i.e. Database, network
+
+//can remove ViewModelModule as we are not using Multibinding
+//remove mainViewModel2 and factory
+
+// use @ApplicationContext for context
+* */
 
 
 

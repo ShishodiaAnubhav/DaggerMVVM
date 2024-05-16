@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     //alias(libs.plugins.jetbrainsKotlinJVM)
+    alias(libs.plugins.daggerHiltAndroid)
     alias(libs.plugins.ksp)
 }
 
@@ -76,8 +77,13 @@ dependencies {
     implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    implementation(libs.dagger)
-    ksp (libs.dagger.compiler)
+    // Dagger2 dependencies
+    //implementation(libs.dagger)
+    //ksp (libs.dagger.compiler)
+
+    //Hilt dependencies
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.48.1")
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)

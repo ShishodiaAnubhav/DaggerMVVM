@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.daggermvvm.models.Product
 import com.example.daggermvvm.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val repository: ProductRepository, private val randomize: Randomize) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: ProductRepository) : ViewModel() {
     val productLiveData: LiveData<List<Product>>
         get() = repository.products
 
@@ -21,9 +23,3 @@ class MainViewModel @Inject constructor(private val repository: ProductRepositor
 }
 //will take object of repository
 // if we use a viewmodel with parameter we need to define viewmodelFactory
-
-class Randomize @Inject constructor() {
-    fun doAction(){
-        Log.d("CHEEZYCODE", "Random Action")
-    }
-}
